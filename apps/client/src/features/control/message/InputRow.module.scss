@@ -1,0 +1,12 @@
+@import "./MessageControl.module.scss";
+
+.inputItems {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: $element-spacing;
+  margin-top: $element-inner-spacing;
+}
+
+.label {
+  @extend .label;
+}

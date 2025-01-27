@@ -1,20 +1,37 @@
-FROM node:14-alpine
+FROM node:20-bullseye AS builder
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN npm install -g pnpm@9.5.0
+COPY . /app
+WORKDIR /app
+RUN pnpm --filter=ontime-ui --filter=ontime-server --filter=ontime-utils install --config.dedupe-peer-dependents=false --frozen-lockfile
+RUN pnpm --filter=ontime-ui --filter=ontime-server run build:docker
 
-WORKDIR /app/server
+FROM node:20-alpine
+
+# Set environment variables
+# Environment Variable to signal that we are running production
+ENV NODE_ENV=docker
+# Ontime Data path
+ENV ONTIME_DATA=/data/
+
+WORKDIR /app/
 
 # Prepare UI
-COPY /client/build ../client/build
+COPY --from=builder /app/apps/client/build ./client/
 
 # Prepare Backend
-COPY /server/src ./
+COPY --from=builder /app/apps/server/dist/ ./server/
+COPY --from=builder /app/apps/server/src/external/ ./external/
+COPY --from=builder /app/apps/server/src/user/ ./user/
+COPY --from=builder /app/apps/server/src/html/ ./html/
 
-# Export default ports Main - OSC IN
-EXPOSE 4001/tcp 8888/udp
-ENV NODE_ENV=production
-ENV ONTIME_DATA=/server/
+# Export default ports
+EXPOSE 4001/tcp 8888/udp 9999/udp
 
-CMD ["yarn", "start:headless"]
+CMD ["node", "server/docker.cjs"]
 
-# Build an run commandsN
-# docker build -t getontime/ontime .
-# docker run -p 4001:4001 -p 10.0.0.12:8888:8888/udp --mount type=bind,source="$(pwd)/ontime-db",target=/server/preloaded-db getontime/ontime
+# Build and run commands
+# !!! Note that this command needs pre-build versions of the UI and server apps
+# docker buildx build . -t getontime/ontime
+# docker run -p 4001:4001 -p 8888:8888/udp -p 9999:9999/udp -v ./ontime-db:/data/ getontime/ontime

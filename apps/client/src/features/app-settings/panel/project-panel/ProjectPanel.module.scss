@@ -1,0 +1,59 @@
+.current {
+  background-color: $blue-1100;
+}
+
+.isEditing {
+  color: $blue-500;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+}
+
+.formInput {
+  flex: 2;
+}
+
+.saveButton {
+  text-transform: capitalize;
+}
+
+.containCell {
+  max-width: 400px;
+}
+
+.innerColumn {
+  margin: 0 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.inlineLabels {
+  label {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.uploadLogoCard {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: $gray-1350;
+  border: 1px solid $white-10;
+  border-radius: 3px;
+
+  img {
+    max-width: 250px;
+    height: auto;
+  }
+}

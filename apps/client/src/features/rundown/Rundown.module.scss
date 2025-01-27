@@ -1,0 +1,54 @@
+.rundownWrapper {
+  height: calc(100% - 1.5rem);
+  width: 100%;
+}
+
+.rundownContainer {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding-right: 4px; // size of scrollbar
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.list {
+  overflow-x: clip;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty {
+  opacity: 0.3;
+  align-self: center;
+}
+
+.alignCenter {
+  text-align: center;
+  flex-direction: column;
+
+  .spaceTop {
+    margin-top: 1.5rem;
+  }
+}
+
+.spacer {
+  min-height: 50vh;
+}
+
+.entryWrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.entryIndex {
+  text-align: right;
+  min-width: 2em;
+  color: $label-gray;
+  font-size: calc(1rem - 3px);
+}
+
+.entry {
+  flex: 1;
+}

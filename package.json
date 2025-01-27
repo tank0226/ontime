@@ -1,0 +1,54 @@
+{
+  "name": "ontime",
+  "version": "3.11.0-beta.1",
+  "description": "Time keeping for live events",
+  "keywords": [
+    "ontime",
+    "timer",
+    "rundown"
+  ],
+  "author": "Carlos Valente",
+  "homepage": "https://www.getontime.no/",
+  "repository": "https://github.com/cpvalente/ontime",
+  "bugs": {
+    "url": "https://github.com/cpvalente/ontime/issues",
+    "email": "mail@getontime.no"
+  },
+  "license": "AGPL-3.0-only",
+  "engines": {
+    "node": "~20",
+    "pnpm": "~9"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:electron": "turbo run dev --filter=ontime",
+    "dev:server": "turbo run dev --filter=ontime-server",
+    "lint": "turbo run lint",
+    "build": "turbo run build",
+    "build:local": "turbo run build:local",
+    "build:electron": "turbo run build:electron",
+    "build:localdocker": "turbo run build:localdocker",
+    "dist-win": "turbo run dist-win",
+    "dist-mac": "turbo run dist-mac",
+    "dist-linux": "turbo run dist-linux",
+    "e2e": "cross-env DEBUG=pw:webserver npx playwright test -c playwright.config.ts",
+    "e2e:ui": "cross-env DEBUG=pw:webserver npx playwright test --ui -c playwright.config.ts",
+    "e2e:i": "npx playwright codegen",
+    "cleanup": "rm -rf node_modules && rm -rf **/node_modules && rm -rf **/**/node_modules"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "cross-env": "^7.0.3",
+    "eslint": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-playwright": "^1.5.2",
+    "prettier": "catalog:",
+    "turbo": "^2.3.3",
+    "typescript": "catalog:"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
